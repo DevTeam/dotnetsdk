@@ -3,8 +3,20 @@
 internal static class Tools
 {
     private const string SolutionFile = "dotnetsdk.sln";
+
+    public static void TryRun(this ICommandLine command)
+    {
+        SetupEnvironment();
+        if (command.Run(i => WriteLine($"{command}> {i.Line}", Color.Trace)) == 0)
+        {
+            return;
+        }
     
-    public static void SetupEnvironment()
+        Error($"Error when {command}.");
+        Environment.Exit(1);
+    }
+    
+    private static void SetupEnvironment()
     {
         if (Path.GetDirectoryName(Environment.CurrentDirectory.TryFindFile(SolutionFile)) is { } solutionDir)
         {
@@ -13,17 +25,6 @@ internal static class Tools
         }
         
         Error($"Solution file {SolutionFile} could not be found.");
-    }
-
-    public static void Run(this ICommandLine command, string shortName)
-    {
-        if (command.Run(i => WriteLine($"{command}> {i.Line}", Color.Trace)) == 0)
-        {
-            return;
-        }
-    
-        Error($"Error when {command}.");
-        Environment.Exit(1);
     }
     
     private static string? TryFindFile(this string? path, string searchPattern)

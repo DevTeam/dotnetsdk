@@ -1,8 +1,7 @@
 ﻿const string image = "dotnetsdk:latest";
 const string repoImage = "nikolayp/dotnetsdk:latest";
 
-Tools.SetupEnvironment();
-new DockerCustom("build", "-t", image, ".").Run("building");
-new DockerCustom("login").Run("login");
-new DockerCustom("tag", image, repoImage).Run("tagging");
-new DockerCustom("image", "push", repoImage).Run("pushing");
+new DockerCustom("build", "-t", image, ".").TryRun();
+new DockerCustom("login").TryRun();
+new DockerCustom("tag", image, repoImage).TryRun();
+new DockerCustom("image", "push", repoImage).TryRun();
