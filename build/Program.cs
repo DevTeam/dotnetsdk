@@ -1,7 +1,11 @@
-﻿const string image = "dotnetsdk:latest";
-const string repoImage = "nikolayp/dotnetsdk:latest";
+﻿const string image = "dotnetsdk";
+var tags = new[] { "latest", "8.0" };
 
 new DockerCustom("build", "-t", image, "docker").TryRun();
 new DockerCustom("login").TryRun();
-new DockerCustom("tag", image, repoImage).TryRun();
-new DockerCustom("image", "push", repoImage).TryRun();
+foreach (var tag in tags)
+{
+    var repoImage = $"nikolayp/{image}:{tag}";
+    new DockerCustom("tag", image, repoImage).TryRun();
+    new DockerCustom("image", "push", repoImage).TryRun();   
+}
