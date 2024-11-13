@@ -15,7 +15,8 @@ RUN apt-get update \
 # .NET
 RUN curl -LO https://dot.net/v1/dotnet-install.sh --output ./dotnet-install.sh \
     && chmod +x ./dotnet-install.sh \
-    && ./dotnet-install.sh --channel 8.0 \
+    && ./dotnet-install.sh --channel 9.0 \
+    && ./dotnet-install.sh --channel 8.0 --runtime aspnetcore \
     && ./dotnet-install.sh --channel 7.0 --runtime aspnetcore \
     && ./dotnet-install.sh --channel 6.0 --runtime aspnetcore \
     && rm ./dotnet-install.sh

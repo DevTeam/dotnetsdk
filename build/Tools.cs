@@ -7,7 +7,7 @@ internal static class Tools
     public static void TryRun(this ICommandLine command)
     {
         SetupEnvironment();
-        if (command.Run(i => WriteLine($"{command}> {i.Line}", Color.Trace)) == 0)
+        if (command.Run(i => WriteLine($"{command}> {i.Line}", Color.Trace)).ExitCode == 0)
         {
             return;
         }

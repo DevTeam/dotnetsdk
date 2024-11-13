@@ -1,5 +1,5 @@
 ﻿const string image = "dotnetsdk";
-var tags = new[] { "latest", "8.0" };
+var tags = new[] { "latest", "9.0" };
 
 new DockerCustom("build", "-t", image, "docker").TryRun();
 new DockerCustom("login").TryRun();
